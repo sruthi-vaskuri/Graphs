@@ -1,0 +1,34 @@
+class Solution
+{
+    public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
+    {
+        // Code here
+        int visited[]=new int[V];
+        int color[]=new int[V];
+        Queue<Integer> q= new LinkedList<>();
+        for(int i1=0;i1<V;i1++){
+            if(visited[i1]==0){
+                q.add(i1);
+                visited[i1]=1;
+                color[i1]=0;
+                while(!q.isEmpty()){
+                    int n=q.poll();
+                    for(int i=0;i<adj.get(n).size();i++){
+                        if(visited[adj.get(n).get(i)]==0){
+                            visited[adj.get(n).get(i)]=1;
+                            q.add(adj.get(n).get(i));
+                            color[adj.get(n).get(i)]=color[n]==0?1:0;
+                        }else{
+                            if(color[adj.get(n).get(i)]==color[n])
+                               return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+}
+
+
+LINK : https://practice.geeksforgeeks.org/problems/bipartite-graph/1/?category[]=Graph&category[]=Graph&page=1&query=category[]Graphpage1category[]Graph#
