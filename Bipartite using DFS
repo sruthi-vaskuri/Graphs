@@ -1,0 +1,34 @@
+class Solution
+{
+    public boolean dfs(int source,ArrayList<ArrayList<Integer>> adj,int visited[],int color[]){
+        visited[source]=1;
+        for(int i=0;i<adj.get(source).size();i++){
+            if(visited[adj.get(source).get(i)]==1){
+                if(color[adj.get(source).get(i)]==color[source])
+                   return false;
+            }
+            else{
+                color[adj.get(source).get(i)]=color[source]==0?1:0;
+                if(!dfs(adj.get(source).get(i),adj,visited,color))
+                   return false;
+            }
+        }
+        return true;
+    }
+    public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
+    {
+       int visited[]=new int[V];
+       int color[]=new int[V];
+       for(int i=0;i<V;i++){
+           if(visited[i]==0){
+               color[i]=1;
+               if(!dfs(i,adj,visited,color))
+                  return false;
+           }
+       }
+       return true;
+    }
+}
+
+
+LINK : https://practice.geeksforgeeks.org/problems/bipartite-graph/1/?category[]=Graph&category[]=Graph&page=1&query=category[]Graphpage1category[]Graph#
