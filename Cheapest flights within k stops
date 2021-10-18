@@ -1,0 +1,40 @@
+class pair{
+    int edge;
+    int wt;
+    pair(int edge,int wt){
+        this.edge=edge;
+        this.wt=wt;
+    }
+} 
+class Solution {
+            int min=Integer.MAX_VALUE;
+    public void dfs(int src,int dst,int k,ArrayList<ArrayList<pair>> adj,int c,int sum){
+        if(src==dst){
+            min=Math.min(min,sum);
+        }
+        if(sum>min)
+            return ;
+        if(c>k)
+            return ;
+        for(int i=0;i<adj.get(src).size();i++){
+            dfs(adj.get(src).get(i).edge,dst,k,adj,c+1,sum+adj.get(src).get(i).wt);
+        }
+    }
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        ArrayList<ArrayList<pair>> adj=new ArrayList<>();
+        for(int i=0;i<n;i++)
+            adj.add(new ArrayList<>());
+        for(int i=0;i<flights.length;i++){
+            adj.get(flights[i][0]).add(new pair(flights[i][1],flights[i][2]));
+        }
+        dfs(src,dst,K,adj,0,0);
+        if(min==Integer.MAX_VALUE)
+            return -1;
+        return min;
+    }
+}
+
+
+
+
+LINK : https://leetcode.com/problems/cheapest-flights-within-k-stops/submissions/
